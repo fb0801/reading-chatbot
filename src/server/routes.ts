@@ -47,4 +47,8 @@ router.get("/api/database", async (req, res) => {
     res.json(sqlRes);
 });
 
+router.get("/api/database/:text", async (req,res) => {
+    console.log(req.params.text);
+})
+
 export default router;

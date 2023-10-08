@@ -2,8 +2,17 @@ import * as React from "react";
 
 
 const App = () => {
-
+    const [text, setText] = React.useState<string>("")
     
+    const getResponse = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/database/${text}`)
+            const data = await response.json()
+        }catch(error){
+            console.error(error)
+        }
+       
+    }
     return (
         <div className="chat-bot">
             <div className="header">
@@ -17,8 +26,11 @@ const App = () => {
                     <div className="question bubble"></div>
                     <div className="response bubble"></div>
             </div>
-            <textarea/>
-            <button>⇨</button>
+            <textarea
+            value= {text}
+            onChange={e => setText(e.target.value)}
+            />
+            <button onClick={getResponse}>⇨</button>
         </div>
     );
 }
