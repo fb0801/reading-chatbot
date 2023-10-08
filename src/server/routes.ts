@@ -65,7 +65,15 @@ try{
 
     const sqlRes  = await readData({database, embedding})
 
-    console.log('sqlRes', sqlRes)
+    const prompt = `user asked: ${text}. Most similar from document is: ${sqlRes.text}`
+    const completion = await = openai.createConnection({
+        model: "gpt-3.5-turbo",
+        messages: [
+            {"role": "system", "content": "you are a assistant"},
+            {role: "User", content: prompt}],
+    })
+    console.log(completion.data.choices[0].messages);
+    res.json(completion.data.choices[0].messages)
 
 }catch(error){
     console.error(error)
