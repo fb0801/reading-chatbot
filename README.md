@@ -1,6 +1,11 @@
 # reading-chatbot
 Building a chatbot to read 
 
+## issues:
+singlestore DB ran into issues running commands
+
+## changes made:
+
 
 ## Resources used 
 
@@ -15,3 +20,5 @@ https://imgur.com/
 https://getwaves.io/
 
 https://www.compart.com/en/unicode/U+21E8
+
+https://platform.openai.com/apps

@@ -3,6 +3,7 @@ import {
     
     getDatabases,
     selectTable,
+    readData
     
 } from "./connection";
 import * as fs from "fs";
@@ -48,7 +49,23 @@ router.get("/api/database", async (req, res) => {
 });
 
 router.get("/api/database/:text", async (req,res) => {
-    console.log(req.params.text);
+   const text = req.params.text
+   const configuration = new Configuration({
+    apiKey: process.env.OPENAI,
+   });
+try{
+    const openai = new OpenAIApi(configuration);
+   const response = await openai.createEmbedding({
+    model: "text-embedding-ada-002",
+    input: text,
+   });
+   const embedding = response.data.data[0].embedding
+
+}catch(error){
+    console.error(error)
+}
+
+   
 })
 
 export default router;

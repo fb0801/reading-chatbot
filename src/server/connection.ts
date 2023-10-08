@@ -73,3 +73,35 @@ export async function selectTable({
         return error;
     }
 }
+
+export async function readData({
+conn,
+database,
+embedding,    
+}: {
+    conn? : mysql.Connection,
+    database: string,
+    embedding: number[] 
+}) {
+    try{
+        let closeConn  = false;
+        if (!conn) {
+            conn  = await connectSingleStore({ database});
+            closeConn = true;
+        }
+
+        const [rows] = await conn.execute(
+            `SELECT text, DOT_PRODUCT(embedding, JSON_ARRAY_PACK('[${embedding}]')) AS
+            similarity FROM my_book ORDER BY similarity
+            DESC LIMIT 1`
+        )
+        if (closeConn) {
+            await stopSingleStore(conn);
+        }
+
+            return rows[0]
+    }catch(error){
+        console.error({error})
+        return error
+    }
+}
