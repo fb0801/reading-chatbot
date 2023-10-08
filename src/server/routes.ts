@@ -2,7 +2,6 @@ import * as express from "express";
 import {
     
     getDatabases,
-    selectTable,
     readData
     
 } from "./connection";
@@ -15,6 +14,9 @@ dotenv.config()
 
 const app = express();
 const router = express.Router();
+
+const database = "reader_data"
+const table = "my_book"
 
 router.get("/api/hello", (req, res, next) => {
     res.json("SingleStore");
@@ -60,6 +62,10 @@ try{
     input: text,
    });
    const embedding = response.data.data[0].embedding
+
+    const sqlRes  = await readData({database, embedding})
+
+    console.log('sqlRes', sqlRes)
 
 }catch(error){
     console.error(error)

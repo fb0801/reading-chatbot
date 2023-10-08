@@ -81,7 +81,7 @@ embedding,
 }: {
     conn? : mysql.Connection,
     database: string,
-    embedding: number[] 
+    embedding: any
 }) {
     try{
         let closeConn  = false;
